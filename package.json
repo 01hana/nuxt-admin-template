@@ -1,0 +1,48 @@
+{
+  "name": "nuxt-app",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "scaffold": "node scripts/scaffold-page.mjs"
+  },
+  "dependencies": {
+    "@nuxt/fonts": "^0.11.4",
+    "@nuxt/icon": "^2.0.0",
+    "@nuxt/image": "^1.11.0",
+    "@nuxt/ui": "^4.0.0",
+    "@nuxtjs/i18n": "^10.0.6",
+    "@pinia/nuxt": "^0.11.2",
+    "@sidebase/nuxt-auth": "^1.0.2",
+    "@vee-validate/i18n": "^4.15.1",
+    "@vee-validate/nuxt": "^4.15.1",
+    "@vee-validate/rules": "^4.15.1",
+    "@vee-validate/zod": "^4.15.1",
+    "@vueuse/nuxt": "^13.9.0",
+    "date-fns": "^4.1.0",
+    "mysql2": "^3.15.0",
+    "nuxt": "^4.0.3",
+    "nuxt-security": "^2.4.0",
+    "vue": "^3.5.20",
+    "vue-router": "^4.5.1",
+    "vxe-pc-ui": "^4.9.18",
+    "vxe-table": "^4.16.7"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^7.0.1",
+    "@nuxt/eslint": "^1.9.0",
+    "@nuxt/typescript": "^2.8.1",
+    "eslint": "^9.34.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-vue": "^10.4.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2",
+    "unplugin-auto-import": "^20.1.0",
+    "unplugin-vue-components": "^29.0.0",
+    "vue-tsc": "^3.0.6"
+  }
+}

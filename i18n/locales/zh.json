@@ -1,0 +1,63 @@
+{
+  "sitename": "nuxt template",
+  "language": "語言",
+  "lang": "繁體中文",
+  "chooseLanguage": "選擇語言",
+  "notFound": "沒有資料",
+  "menu": {
+    "dashboard": "數據統計",
+    "customers": "顧客列表",
+    "products": "商品列表",
+    "orders": "訂單紀錄",
+    "groups": "帳戶群組",
+    "users": "帳戶資料",
+    "accounts-groups": "帳戶群組",
+    "accounts-users": "帳戶資料"
+  },
+  "auth": {
+    "login": "登入",
+    "logout": "登出",
+    "forget": "忘記密碼"
+  },
+  "products": {
+    "skin": "臉部",
+    "body": "身體",
+    "hair": "頭髮",
+    "scents": "香氛"
+  },
+  "actions": {
+    "create": "新增",
+    "edit": "編輯",
+    "view": "瀏覽",
+    "save": "儲存",
+    "enter": "確認 | 完成",
+    "enable": "啟用",
+    "disable": "停用",
+    "remove": "刪除",
+    "close": "關閉 | 取消",
+    "batch": "批次選取 | 結束選取 | 已選取",
+    "batchApply": "批次套用",
+    "apply": "套用",
+    "clear": "清除",
+    "advance": "進階 {0}",
+    "advanceSearch": "進階搜尋",
+    "search": "搜尋",
+    "selectAll": "全選"
+  },
+  "form": {
+    "keyword": "搜尋關鍵字...",
+    "pwdShouldBe": "密碼格式必須",
+    "pwdString": "至少一位英文字母",
+    "pwdNumber": "至少一位數字",
+    "pwdSymbol": "至少一位特殊符號",
+    "pwdLength": "長度至少 8 位字元"
+  },
+  "confirm": {
+    "removeTitle": "確認刪除?",
+    "remove": "您確定要刪除 {name} ?",
+    "removeBatch": "刪除選取的 {count} 筆資料?"
+  },
+  "error": {
+    "unexpectOccured": "發生不可預期的錯誤"
+  }
+}

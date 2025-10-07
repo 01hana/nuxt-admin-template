@@ -1,0 +1,53 @@
+{
+  "language": "Language",
+  "lang": "English",
+  "chooseLanguage": "Choose language",
+  "notFound": "No Data",
+  "menu": {
+    "dashboard": "Dashboard",
+    "customers": "Customers",
+    "products": "Products",
+    "orders": "Orders",
+    "groups": "Groups",
+    "users": "Users"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "forget": "Forgot password"
+  },
+  "products": {
+    "skin": "Skin",
+    "body": "Body",
+    "hair": "Hair",
+    "scents": "Scents"
+  },
+  "actions": {
+    "create": "Create",
+    "edit": "Edit",
+    "view": "View",
+    "save": "Save",
+    "enter": "Confirmed | Completed",
+    "enable": "Enable",
+    "disable": "Disable",
+    "remove": "Remove",
+    "close": "Close | Cancel",
+    "batch": "Batch selection | End selection | Selected",
+    "batchApply": "Batch apply",
+    "apply": "Apply",
+    "clear": "Clear",
+    "advance": "Advance {0}",
+    "advanceSearch": "Advanced search"
+  },
+  "form": {
+    "keyword": "Search keyword...",
+    "pwdShouldBe": "Password should include",
+    "pwdString": "At least one English letter",
+    "pwdNumber": "At least one digit",
+    "pwdSymbol": "At least one special symbol",
+    "pwdLength": "At least 8 characters long"
+  },
+  "error": {
+    "unexpectOccured": "An unexpected error occurred"
+  }
+}
