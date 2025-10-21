@@ -6,7 +6,7 @@ const isCollapsed = inject('isCollapsed');
 
 <template>
   <aside
-    class="hidden xl:flex flex-none bg-gray-50 dark:bg-gray-900 flex-col transition-all duration-300"
+    class="hidden xl:flex flex-none dark:bg-gray-900 flex-col transition-all duration-300"
     :class="isCollapsed ? 'w-20' : 'w-[250px]'"
   >
     <div

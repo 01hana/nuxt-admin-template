@@ -10,5 +10,5 @@ export default defineEventHandler(async event => {
 
   const data = await userService.update(id, body);
 
-  return { data };
+  return data;
 });

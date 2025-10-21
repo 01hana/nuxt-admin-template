@@ -4,10 +4,12 @@ const {
   icon = '',
   type = 'input',
   hideLabel = false,
+  multiple = false,
 } = defineProps({
   icon: String,
   type: String,
   hideLabel: Boolean,
+  multiple: Boolean,
 });
 
 const attrs = useAttrs();
@@ -48,8 +50,10 @@ const { value, errorMessage: errorMessages } = useField<any>(
       v-if="type === 'select'"
       v-model="value"
       value-key="id"
-      :items="$attrs.items as any[]"
+      :multiple
       class="w-full"
+      v-bind="$attrs"
+      :items="$attrs.items as any[]"
     />
 
     <USwitch
@@ -57,7 +61,8 @@ const { value, errorMessage: errorMessages } = useField<any>(
       v-model="value"
       unchecked-icon="i-lucide-x"
       checked-icon="i-lucide-check"
-      default-value
+      v-bind="{ ...$attrs, label: undefined }"
+      :default-value="true"
     />
 
     <UInputNumber
@@ -67,9 +72,16 @@ const { value, errorMessage: errorMessages } = useField<any>(
       class="w-full"
       orientation="vertical"
       :min="0"
+      v-bind="$attrs"
     />
 
-    <UTextarea v-if="type === 'textarea'" v-model="value" autoresize class="w-full" />
+    <UTextarea
+      v-if="type === 'textarea'"
+      v-model="value"
+      autoresize
+      class="w-full"
+      v-bind="$attrs"
+    />
 
     <UInput v-if="type === 'input'" v-model="value" class="w-full" v-bind="$attrs">
       <template #trailing>

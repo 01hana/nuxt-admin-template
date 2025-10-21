@@ -6,11 +6,15 @@ class UsersService {
   };
 
   public getFilters = () => {
-    return httpRequest.get('users/filters');
+    return httpRequest.get('users/getFilters');
   };
 
   public get = (id: string) => {
     return httpRequest.get(`users/${id}`);
+  };
+
+  public getGroups = () => {
+    return httpRequest.get('users/getGroups');
   };
 
   public create = (data: Record<string, any>) => {

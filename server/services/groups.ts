@@ -2,7 +2,6 @@ import { groupRepository } from '../repositories/groups';
 import { permissionRepository } from '../repositories/permission';
 
 export const groupService = {
-  //  分頁查詢
   async getTable(body: any) {
     const [sortField, sortOrder] = body.sort || ['updated_at', 'desc'];
     const keyword = body.searches?.keyword || '';
@@ -11,8 +10,7 @@ export const groupService = {
     const length = Number(body.length) || 35;
     const offset = (p - 1) * length;
 
-    // 查詢分頁資料
-    const rows = await groupRepository.findAll({
+    const { data, total } = await groupRepository.findAll({
       sortField,
       sortOrder,
       keyword,
@@ -21,14 +19,8 @@ export const groupService = {
       offset,
     });
 
-    // 查詢總數
-    const total = await groupRepository.countAll({
-      keyword,
-      filters,
-    });
-
     return {
-      data: rows,
+      data,
       p,
       length,
       total,

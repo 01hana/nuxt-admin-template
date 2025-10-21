@@ -13,6 +13,12 @@ export const useUsers = defineStore('users', () => {
     return res;
   }
 
+  async function getGroups() {
+    const { data: res } = await UsersService.getGroups();
+
+    return res;
+  }
+
   async function get(id: string) {
     return await UsersService.get(id);
   }
@@ -36,6 +42,7 @@ export const useUsers = defineStore('users', () => {
   return {
     getTable,
     getFilters,
+    getGroups,
     get,
     create,
     set,

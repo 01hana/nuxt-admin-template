@@ -12,12 +12,11 @@ export interface Permission {
   action: string;
 }
 
-export interface PaginationOptions {
-  page?: number;
-  length?: number;
-  sortField?: string;
-  sortOrder?: 'ASC' | 'DESC';
-  keyword?: string;
-  searchFields?: string[]; // 哪些欄位要 LIKE 搜尋
-  filters?: { field: string; value: any }[];
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  groups: Record<string, string>[];
+  status: Boolean | number;
+  updated_at: Date;
 }

@@ -44,7 +44,7 @@ export default class Base {
     length: this.pager.length,
     sort: null,
     searches: { keyword: '' },
-    filters: [],
+    filters: {},
   });
 
   // public params = computed(() => {
@@ -105,7 +105,7 @@ export default class Base {
   protected resetFilter = () => {
     this.table.clearFilter();
 
-    this._params.filters = [];
+    this._params.filters = {};
   };
 
   private readonly resetSort = () => {
