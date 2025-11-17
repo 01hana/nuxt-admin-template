@@ -20,7 +20,7 @@ const { t } = useI18n();
 
         <template #title>
           <img
-            src="@/assets/images/logo/logo-h.png"
+            src="@/assets/images/logo/logo.png"
             :alt="t('sitename')"
             class="object-contain h-[120px]"
           />

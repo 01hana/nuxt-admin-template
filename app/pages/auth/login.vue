@@ -20,14 +20,12 @@ const onSubmit = handleSubmit(values => {
 </script>
 
 <template>
-  <UCard class="w-[400px] shadow-lg ring-0">
+  <UCard class="w-[400px] shadow-lg ring-0 pb-5">
     <template #header>
-      <div>
-        <img src="@/assets/images/logo/logo-h.png" alt="logo" />
-      </div>
+      <img src="@/assets/images/logo/logo.png" alt="logo" />
     </template>
 
-    <UForm :state="{}" class="space-y-3 py-5" @submit="onSubmit">
+    <UForm :state="{}" class="space-y-3" @submit="onSubmit">
       <FormField name="account" label="帳號" icon="fluent:person-lock-24-regular" />
       <FormField
         name="password"

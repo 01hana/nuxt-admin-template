@@ -1,7 +1,7 @@
 export const sideMenu = [
   {
     label: 'menu.dashboard',
-    icon: 'fluent:home-24-regular',
+    icon: 'solar:chart-2-outline',
     to: '/',
   },
   {
@@ -20,13 +20,18 @@ export const sideMenu = [
     to: '/orders',
   },
   {
-    label: 'menu.groups',
+    label: 'menu.accounts',
     icon: 'fluent:people-24-regular',
-    to: '/accounts/groups',
-  },
-  {
-    label: 'menu.users',
-    icon: 'fluent:person-24-regular',
-    to: '/accounts/users',
+    // defaultOpen: true,
+    children: [
+      {
+        label: 'menu.groups',
+        to: '/accounts/groups',
+      },
+      {
+        label: 'menu.users',
+        to: '/accounts/users',
+      },
+    ],
   },
 ];

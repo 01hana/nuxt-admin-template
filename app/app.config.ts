@@ -68,6 +68,39 @@ export default defineAppConfig({
         label: 'text-base',
       },
     },
+    navigationMenu: {
+      slots: {
+        root: 'flex-1 p-4 space-y-1 overflow-y-auto',
+        list: 'flex flex-col gap-1.5',
+        link: 'text-base font-normal',
+      },
+      variants: {
+        active: {
+          true: {
+            link: 'bg-primary-100 text-primary-700 rounded-md',
+            linkLeadingIcon: 'text-primary-700',
+            linkLabel: 'text-primary-700',
+            childLink: 'text-primary-700 !bg-transparent before:bg-transparent',
+          },
+          false: {
+            link: 'text-default rounded-md hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800',
+            linkLeadingIcon: 'text-default dark:text-gray-300',
+          },
+        },
+      },
+      compoundVariants: [
+        {
+          class: {
+            childList: 'border-0 gap-1.5 flex flex-col py-1',
+          },
+        },
+      ],
+      defaultVariants: {
+        color: null,
+        variant: null,
+        highlightColor: null,
+      },
+    },
   },
   icon: {
     size: '20px',

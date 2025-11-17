@@ -11,14 +11,16 @@ const isCollapsed = inject('isCollapsed');
   >
     <div
       class="flex items-center px-4 mb-4"
-      :class="[isCollapsed ? 'justify-center h-16' : 'justify-between']"
+      :class="[isCollapsed ? 'justify-center h-20' : 'justify-between']"
     >
       <div v-if="!isCollapsed" class="text-xl font-bold my-3 block">
-        <img src="@/assets/images/logo/logo-h-removebg.png" alt="logo" />
+        <ClientOnly>
+          <img src="@/assets/images/logo/logo.png" alt="logo" />
+        </ClientOnly>
       </div>
 
       <UButton
-        icon="fluent:layout-column-one-third-left-24-regular"
+        :icon="isCollapsed ? 'line-md:menu-fold-right' : 'line-md:menu-fold-left'"
         variant="ghost"
         color="neutral"
         @click="isCollapsed = !isCollapsed"
