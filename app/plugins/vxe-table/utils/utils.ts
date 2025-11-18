@@ -3,7 +3,7 @@ export const getLocalePackage = (value?: string): Promise<any> => {
 
   const packageConfigurations: { [key: string]: () => Promise<any> } = {
     en: () => import('vxe-pc-ui/lib/language/en-US'),
-    zhTW: () => import('vxe-pc-ui/lib/language/zh-TW'),
+    zh_tw: () => import('vxe-pc-ui/lib/language/zh-TW'),
   };
 
   const isPackageExist: boolean = Object.prototype.hasOwnProperty.call(
@@ -13,5 +13,5 @@ export const getLocalePackage = (value?: string): Promise<any> => {
 
   if (isPackageExist) return packageConfigurations[locale]!();
 
-  return packageConfigurations['zhTW']!();
+  return packageConfigurations['zh_tw']!();
 };

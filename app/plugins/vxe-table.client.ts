@@ -28,17 +28,25 @@ export default defineNuxtPlugin(async ({ vueApp }) => {
   const nuxtApp = useNuxtApp();
   const locale = nuxtApp.$i18n.locale.value;
 
-  const { default: message } = await getLocalePackage(locale);
-
   const localeMap: { [key: string]: VxeGlobalI18nLocale } = {
     en: 'en-US',
     zh_tw: 'zh-TW',
   };
 
-  const lang = localeMap[locale as 'en' | 'zh_tw'] as VxeGlobalI18nLocale;
+  const loadVxeLocale = async (lang: string) => {
+    const { default: message } = await getLocalePackage(lang);
+    const vxeLang = localeMap[lang] ?? 'zh-TW';
 
-  VxeUI.setI18n(lang, message);
-  VxeUI.setLanguage(lang);
+    VxeUI.setI18n(vxeLang, message);
+    VxeUI.setLanguage(vxeLang);
+  };
+
+  await loadVxeLocale(locale);
+
+  watch(nuxtApp.$i18n.locale, async newLocale => {
+    await loadVxeLocale(newLocale);
+  });
+
   VxeUI.setConfig(tableConfig);
   VxeUI.setIcon(iconConfig);
   //   VxeUI.use(VXETablePluginExportXLSX, {

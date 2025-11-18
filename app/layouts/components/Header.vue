@@ -4,6 +4,16 @@ import MenuList from './MenuList.vue';
 const [open, setOpen] = useAppState(false);
 
 const { t } = useI18n();
+const route = useRoute();
+
+watch(
+  () => route.name,
+  newRoute => {
+    if (!newRoute) return;
+
+    setOpen(false);
+  },
+);
 </script>
 
 <template>
@@ -28,7 +38,7 @@ const { t } = useI18n();
 
         <template #body>
           <div class="flex flex-none flex-col h-full">
-            <MenuList @changeRoute="setOpen(false)" />
+            <MenuList />
           </div>
         </template>
       </USlideover>

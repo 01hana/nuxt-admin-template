@@ -1,4 +1,6 @@
-export const sideMenu = [
+import type { NavigationMenuItem } from '@nuxt/ui';
+
+export const sideMenu: NavigationMenuItem[] = [
   {
     label: 'menu.dashboard',
     icon: 'solar:chart-2-outline',
@@ -22,7 +24,7 @@ export const sideMenu = [
   {
     label: 'menu.accounts',
     icon: 'fluent:people-24-regular',
-    // defaultOpen: true,
+    open: true,
     children: [
       {
         label: 'menu.groups',

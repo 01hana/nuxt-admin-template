@@ -1,32 +1,24 @@
 <script setup lang="ts">
-import { sideMenu } from '../../../constants/nav';
+const isCollapsed = inject('isCollapsed') as boolean;
 
-const emits = defineEmits(['changeRoute']);
+const router = useRouter();
+const { t } = useI18n();
+const switchLocalePath = useSwitchLocalePath();
 
-const isCollapsed = inject('isCollapsed');
+const { menu } = useNavigation();
 
-const { t, setLocale } = useI18n();
-const route = useRoute();
+function changeLang(lang: 'zh_tw' | 'en') {
+  const path = switchLocalePath(lang);
 
-const transSideMenu = computed(() =>
-  sideMenu.map(item => ({
-    ...item,
-    label: t(item.label),
-    children:
-      item.children?.map(child => ({
-        ...child,
-        label: t(child.label),
-      })) ?? null,
-  })),
-);
+  router.push(path);
+}
 </script>
 
 <template>
   <UNavigationMenu
     orientation="vertical"
-    :items="transSideMenu"
+    :items="menu"
     :collapsed="isCollapsed"
-    @click="emits('changeRoute')"
     :ui="{
       link: isCollapsed ? 'flex justify-center' : '',
     }"
@@ -47,13 +39,13 @@ const transSideMenu = computed(() =>
         <div class="flex items-center justify-around flex-wrap">
           <UButton
             class="h-32 w-50 text-xl flex flex-col items-center justify-center"
-            @click="setLocale('en')"
+            @click="changeLang('en')"
           >
             <Icon name="circle-flags:en" size="36px" /> <span>English</span>
           </UButton>
           <UButton
             class="h-32 w-50 text-xl flex flex-col items-center justify-center"
-            @click="setLocale('zh_tw')"
+            @click="changeLang('zh_tw')"
           >
             <Icon name="circle-flags:tw" size="36px" /> <span>繁體中文</span>
           </UButton>

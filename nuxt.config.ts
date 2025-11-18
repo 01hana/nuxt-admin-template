@@ -41,9 +41,16 @@ export default defineNuxtConfig({
   i18n: {
     defaultLocale: 'zh_tw',
     strategy: 'prefix_except_default',
+    langDir: 'locales',
     locales: [
-      { code: 'zh_tw', iso: 'zh-TW', file: 'zh.json', name: '繁體中文' },
-      { code: 'en', iso: 'en-US', file: 'en.json', name: 'English' },
+      {
+        code: 'zh_tw',
+        files: ['zh_tw/common.json'],
+      },
+      {
+        code: 'en',
+        files: ['en/common.json'],
+      },
     ],
   },
   veeValidate: {
@@ -52,4 +59,5 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['stores', 'composables', 'utils', 'plugins/vxe-table/utils'],
   },
+  ssr: false,
 });
