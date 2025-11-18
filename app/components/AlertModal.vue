@@ -10,21 +10,26 @@ enum alertColor {
 
 const { t } = useI18n();
 
-const {
-  title = '',
-  icon = '',
-  type = 'success',
-  size = 'w-md',
-} = defineProps<{
-  title: string;
-  icon: string;
-  type?: Alertype;
-  size?: string;
-}>();
-
-const color = computed(() => alertColor[type as Alertype]);
-
 const emits = defineEmits(['callAction']);
+
+const props = withDefaults(
+  defineProps<{
+    title?: string;
+    icon?: string;
+    type?: Alertype;
+    size?: string;
+  }>(),
+  {
+    title: '',
+    icon: '',
+    type: 'success',
+    size: 'w-md',
+  },
+);
+
+const { title, icon, type, size } = toRefs(props);
+
+const color = computed(() => alertColor[type.value]);
 </script>
 
 <template>
@@ -57,5 +62,3 @@ const emits = defineEmits(['callAction']);
     </template>
   </UModal>
 </template>
-
-<style scoped></style>

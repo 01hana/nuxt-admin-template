@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { ModalProps } from '@/composables/useModal';
 
+defineOptions({ inheritAttrs: false });
+
 const { show, title, subtitle, setTitle, afterEnter, afterLeave } = inject(
   useModalKey,
 ) as ModalProps;
@@ -9,6 +11,23 @@ const attrs = useAttrs();
 const route = useRoute();
 const { t } = useI18n();
 
+const props = withDefaults(
+  defineProps<{
+    fullscreen?: boolean;
+    size?: string;
+    formId?: string;
+    dismissible?: boolean;
+  }>(),
+  {
+    fullscreen: false,
+    size: 'w-2xl',
+    formId: 'create-edit-form',
+    dismissible: true,
+  },
+);
+
+const { fullscreen, size, formId, dismissible } = toRefs(props);
+
 const pageTitle = computed(() => {
   const key = route.name?.toString().replace(/___.*$/, '') || '';
 
@@ -16,20 +35,6 @@ const pageTitle = computed(() => {
 });
 
 setTitle(pageTitle.value);
-
-const {
-  size = 'w-2xl',
-  fullscreen = false,
-  formId = 'create-edit-form',
-  dismissible = true,
-} = defineProps({
-  fullscreen: Boolean,
-  size: String,
-  formId: String,
-  dismissible: Boolean,
-});
-
-defineOptions({ inheritAttrs: false });
 </script>
 
 <template>

@@ -14,9 +14,7 @@ const isCollapsed = inject('isCollapsed');
       :class="[isCollapsed ? 'justify-center h-20' : 'justify-between']"
     >
       <div v-if="!isCollapsed" class="text-xl font-bold my-3 block">
-        <ClientOnly>
-          <img src="@/assets/images/logo/logo.png" alt="logo" />
-        </ClientOnly>
+        <img src="@/assets/images/logo/logo.png" alt="logo" />
       </div>
 
       <UButton

@@ -1,19 +1,24 @@
 <script setup lang="ts">
 defineOptions({ inheritAttrs: false });
 
-const {
-  icon = '',
-  fieldType = 'input',
-  hideLabel = false,
-  multiple = false,
-  isRequired = false,
-} = defineProps({
-  icon: String,
-  fieldType: String,
-  hideLabel: Boolean,
-  multiple: Boolean,
-  isRequired: Boolean,
-});
+const props = withDefaults(
+  defineProps<{
+    icon?: string;
+    fieldType?: string;
+    hideLabel?: boolean;
+    multiple?: boolean;
+    isRequired?: boolean;
+  }>(),
+  {
+    icon: '',
+    fieldType: 'input',
+    hideLabel: false,
+    multiple: false,
+    isRequired: false,
+  },
+);
+
+const { icon, fieldType, hideLabel, multiple, isRequired } = toRefs(props);
 
 const attrs = useAttrs();
 
@@ -65,6 +70,7 @@ const { value, errorMessage: errorMessages } = useField<any>(
       v-model="value"
       value-key="id"
       size="xl"
+      orientation="horizontal"
       v-bind="$attrs"
       :items="$attrs.items as any[]"
     />

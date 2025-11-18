@@ -1,15 +1,20 @@
 <script setup lang="ts">
 defineOptions({ inheritAttrs: false });
 
-const {
-  multiple = false,
-  accept = '',
-  fileIcon = 'i-lucide-image',
-} = defineProps({
-  multiple: Boolean,
-  accept: String,
-  fileIcon: String,
-});
+const props = withDefaults(
+  defineProps<{
+    multiple?: boolean;
+    accept?: string;
+    fileIcon?: string;
+  }>(),
+  {
+    multiple: false,
+    accept: '',
+    fileIcon: 'i-lucide-image',
+  },
+);
+
+const { multiple, accept, fileIcon } = toRefs(props);
 
 const attrs = useAttrs();
 

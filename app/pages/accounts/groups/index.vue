@@ -13,9 +13,7 @@ provide(DtUtils.key, new DtUtils(useGroups()));
       <DtHeader />
     </template>
 
-    <ClientOnly>
-      <DtTable />
-    </ClientOnly>
+    <DtTable />
 
     <FormModal />
   </UCard>

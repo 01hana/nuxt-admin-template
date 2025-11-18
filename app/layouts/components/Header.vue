@@ -4,6 +4,7 @@ import MenuList from './MenuList.vue';
 const [open, setOpen] = useAppState(false);
 
 const { t } = useI18n();
+const localePath = useLocalePath();
 const route = useRoute();
 
 watch(
@@ -55,7 +56,7 @@ watch(
           description="開發工程師"
           size="xl"
           class="cursor-pointer gap-1"
-          to="/accounts/profile"
+          :to="localePath('/accounts/profile')"
         >
           <template #avatar>
             <div class="flex items-center justify-center w-10 h-10">

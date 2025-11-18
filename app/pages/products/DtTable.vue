@@ -41,8 +41,6 @@ const { params, filters, actionStatus } = inject(DtUtils.key) as InstanceType<ty
 
     <vxe-column min-width="120" field="category" title="分類" align="center" :filters />
 
-    <vxe-column min-width="120" field="stock" title="庫存" align="center" />
-
     <vxe-column
       min-width="120"
       field="price"
@@ -55,9 +53,16 @@ const { params, filters, actionStatus } = inject(DtUtils.key) as InstanceType<ty
       }"
     />
 
-    <vxe-column min-width="120" field="status" title="是否有庫存" align="center" :filters>
+    <vxe-column min-width="120" field="stock" title="庫存數量" align="center" />
+
+    <vxe-column min-width="120" field="status" title="狀態" align="center" :filters>
       <template #default="{ row }">
-        <FormField v-model="row.status" name="status" fieldType="switch" class="flex justify-center" />
+        <FormField
+          v-model="row.status"
+          name="status"
+          fieldType="switch"
+          class="flex justify-center"
+        />
       </template>
     </vxe-column>
 

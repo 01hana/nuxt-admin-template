@@ -32,7 +32,12 @@ function changeLang(lang: 'zh_tw' | 'en') {
         color="neutral"
         class="flex items-center gap-2"
       >
-        <span v-if="!isCollapsed">{{ t('language') }}</span>
+        <span
+          class="transition-all duration-100 overflow-hidden whitespace-nowrap"
+          :class="isCollapsed ? 'opacity-0 w-0' : 'opacity-100 w-auto'"
+        >
+          {{ t('language') }}
+        </span>
       </UButton>
 
       <template #body>
@@ -59,7 +64,12 @@ function changeLang(lang: 'zh_tw' | 'en') {
       color="neutral"
       class="flex items-center gap-2"
     >
-      <span v-if="!isCollapsed">{{ t('auth.logout') }}</span>
+      <span
+        class="transition-all duration-100 whitespace-nowrap overflow-hidden"
+        :class="isCollapsed ? 'w-0 opacity-0' : 'w-auto opacity-100'"
+      >
+        {{ t('auth.logout') }}
+      </span>
     </UButton>
   </div>
 </template>

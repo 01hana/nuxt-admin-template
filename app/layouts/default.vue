@@ -21,7 +21,7 @@ provide('isCollapsed', isCollapsed);
     <SideBar />
 
     <UContainer
-      class="bg-slate-100 dark:bg-slate-900"
+      class="bg-slate-100 dark:bg-slate-900 transition-all duration-300 ease-in-out"
       :class="[isCollapsed ? 'xl:w-[calc(100vw-80px)]' : 'xl:w-[calc(100vw-250px)]']"
     >
       <Header />

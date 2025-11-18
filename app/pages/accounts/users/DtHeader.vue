@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
 <template>
-  <TableHeader />
+  <TableHeader :actions="{ status: true }" />
 </template>

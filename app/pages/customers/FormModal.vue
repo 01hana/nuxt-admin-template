@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { RadioGroupItem } from '@nuxt/ui';
 import { customersFields as updateFields } from '../../../constants/form/update-fields';
+import { genderOptions } from '../../../constants/form/options';
 
 const { updateDtRowData, params } = inject(DtUtils.key) as InstanceType<typeof DtUtils>;
 const { id, show, isAdd, isEdit, setModal } = inject(useModalKey) as ModalProps;
@@ -10,27 +10,21 @@ const { handleSubmit, resetForm, setFieldValue } = useForm({
   validationSchema: {
     name: 'required',
     gender: 'required',
-    email: 'required',
-    mobile: 'required',
+    email: 'required|email',
+    mobile: 'required|numeric',
     address: 'required',
   },
 });
 const { formUpdate } = useAppForm(updateFields, setFieldValue);
+const { t: tv } = usePageI18n();
+const { t } = useI18n();
 
-const radioItems = ref<RadioGroupItem[]>([
-  {
-    label: '男',
-    id: 'male',
-  },
-  {
-    label: '女',
-    id: 'female',
-  },
-  {
-    label: '不透露',
-    id: 'unknown',
-  },
-]);
+const radioItems = computed(() =>
+  genderOptions.map(({ id }) => ({
+    label: t(`form.gender.${id}`),
+    id,
+  })),
+);
 
 watch([show, id], async ([isShow, id]) => {
   if (isShow && !id) {
@@ -71,19 +65,18 @@ const onSubmit = handleSubmit(async values => {
     <template #content>
       <UForm id="create-edit-form" :state="{}" @submit="onSubmit">
         <div class="flex flex-col gap-3">
-          <FormField name="name" label="姓名" isRequired />
+          <FormField name="name" :label="tv('name')" isRequired />
           <FormField
             name="gender"
-            label="性別"
+            :label="tv('gender')"
             fieldType="radio"
             :items="radioItems"
-            :orientation="'horizontal'"
             isRequired
           />
-          <FormField name="mobil" label="行動電話" isRequired />
+          <FormField name="mobile" :label="tv('mobile')" isRequired />
           <FormField name="email" label="Email" isRequired />
-          <FormField name="address" label="地址" isRequired />
-          <DatePicker name="birthday" label="生日" />
+          <FormField name="address" :label="tv('address')" isRequired />
+          <DatePicker name="birthday" :label="tv('birthday')" />
         </div>
       </UForm>
     </template>

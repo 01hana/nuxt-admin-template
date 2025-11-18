@@ -44,9 +44,26 @@ const onSubmit = handleSubmit(async values => {
   <Modal @after:leave="onAfterLeave" form-id="create-edit-form">
     <template #content>
       <UForm id="create-edit-form" :state="{}" @submit="onSubmit">
-        <div class="grid grid-cols-3 gap-4">
-          <!-- 預設一個欄位，之後依需求自行補充 -->
-          <FormField name="name" label="名稱" />
+        <div class="flex gap-6 md:flex-row flex-col">
+          <div class="flex-1 flex flex-col gap-3">
+            <h3 class="font-bold text-primary">訂單資訊</h3>
+            <FormField name="order_number" label="訂單編號(系統自動產生)" disabled />
+            <FormField name="payment_method" label="付款方式" fieldType="radio" :items="[]" />
+            <FormField name="delivery_method" label="寄送方式" fieldType="radio" :items="[]" />
+            <FormField name="payment_status" label="付款狀態" fieldType="select" :items="[]" />
+            <FormField name="delivery_status" label="寄送狀態" fieldType="select" :items="[]" />
+            <FormField name="order_status" label="訂單狀態" fieldType="select" :items="[]" />
+          </div>
+
+          <USeparator orientation="vertical" class="hidden md:block h-auto self-stretch -my-6" />
+
+          <div class="flex-1 flex flex-col gap-3">
+            <h3 class="font-bold text-primary">收件人資訊</h3>
+            <FormField name="customer" label="姓名" />
+            <FormField name="mobile" label="電話" />
+            <FormField name="email" label="Email" />
+            <FormField name="address" label="地址" />
+          </div>
         </div>
       </UForm>
     </template>

@@ -3,12 +3,20 @@ import { CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalize
 
 defineOptions({ inheritAttrs: false });
 
-const { icon = '', hideLabel = false } = defineProps({
-  icon: String,
-  hideLabel: Boolean,
-});
+const props = withDefaults(
+  defineProps<{
+    icon?: string;
+    hideLabel?: boolean;
+  }>(),
+  {
+    icon: '',
+    hideLabel: false,
+  },
+);
 
-const { t, locale } = useI18n();
+const { icon, hideLabel } = toRefs(props);
+
+const { t } = useI18n();
 const attrs = useAttrs();
 
 const id = ref(`text-field-${useId()}`);
@@ -37,9 +45,9 @@ const calendarValue = computed({
 
     return new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
   },
-  set(v: any) {
-    if (v)
-      modelValue.value = v.toDate(timeZone).toISOString().split('T')[0]; // 格式化為 YYYY-MM-DD
+  set(value: any) {
+    if (value)
+      modelValue.value = value.toDate(timeZone).toISOString().split('T')[0]; // 格式化為 YYYY-MM-DD
     else modelValue.value = null;
   },
 });
