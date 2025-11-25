@@ -5,8 +5,8 @@ export function usePageI18n() {
 
   const rawName = route.name?.toString() ?? '';
 
-  // 移除 ___zh_tw / ___en
-  const baseName = rawName.replace(/___\w+$/, '');
+  // 移除 ___zh-TW / ___en
+  const baseName = rawName.replace(/___[\w-]+$/, '');
 
   onMounted(async () => {
     try {

@@ -9,7 +9,8 @@ import VxeUI from 'vxe-pc-ui';
 import 'vxe-table/lib/style.css';
 import 'vxe-pc-ui/lib/style.css';
 
-import { tableConfig, iconConfig } from './vxe-table/config';
+import { tableConfig, iconConfig } from '../libs/vxe-table/config';
+import { getLocalePackage } from '../libs/vxe-table/utils';
 
 export default defineNuxtPlugin(async ({ vueApp }) => {
   vueApp.use(VxeTable);
@@ -30,7 +31,7 @@ export default defineNuxtPlugin(async ({ vueApp }) => {
 
   const localeMap: { [key: string]: VxeGlobalI18nLocale } = {
     en: 'en-US',
-    zh_tw: 'zh-TW',
+    'zh-TW': 'zh-TW',
   };
 
   const loadVxeLocale = async (lang: string) => {

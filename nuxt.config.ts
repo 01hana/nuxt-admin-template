@@ -39,17 +39,17 @@ export default defineNuxtConfig({
     },
   },
   i18n: {
-    defaultLocale: 'zh_tw',
+    defaultLocale: 'zh-TW',
     strategy: 'prefix_except_default',
     langDir: 'locales',
     locales: [
       {
-        code: 'zh_tw',
-        files: ['zh_tw/common.json'],
+        code: 'zh-TW',
+        files: ['zh-TW/common.json', 'zh-TW/plugin.json'],
       },
       {
         code: 'en',
-        files: ['en/common.json'],
+        files: ['en/common.json', 'en/plugin.json'],
       },
     ],
   },
@@ -57,7 +57,7 @@ export default defineNuxtConfig({
     autoImports: true,
   },
   imports: {
-    dirs: ['stores', 'composables', 'utils', 'plugins/vxe-table/utils'],
+    dirs: ['stores', 'composables', 'utils', 'libs/vxe-table'],
   },
   ssr: false,
 });

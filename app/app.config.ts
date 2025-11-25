@@ -20,7 +20,7 @@ export default defineAppConfig({
     card: {
       slots: {
         header: 'border-none',
-        body: 'sm:py-0',
+        body: 'sm:py-0 w-full',
       },
     },
     dropdownMenu: {
@@ -96,9 +96,9 @@ export default defineAppConfig({
         },
       ],
       defaultVariants: {
-        color: null,
-        variant: null,
-        highlightColor: null,
+        color: undefined,
+        variant: undefined,
+        highlightColor: undefined,
       },
     },
   },

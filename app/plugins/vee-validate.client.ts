@@ -39,7 +39,7 @@ export default defineNuxtPlugin(async () => {
     let messages;
 
     switch (locale) {
-      case 'zh_tw':
+      case 'zh-TW':
         messages = (await import('@vee-validate/i18n/dist/locale/zh_TW.json')).default;
         break;
       case 'en':

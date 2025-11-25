@@ -17,11 +17,7 @@ function resolveToPath(to: ToType): string {
  * /accounts/groups → accounts-groups
  */
 function pathToName(path: string) {
-  return (
-    path
-      .replace(/^\//, '') // 去掉開頭斜線
-      .replace(/\//g, '-') || 'index'
-  );
+  return path.replace(/^\//, '').replace(/\//g, '-') || 'dashboard';
 }
 
 export function useNavigation() {

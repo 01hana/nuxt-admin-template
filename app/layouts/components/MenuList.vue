@@ -7,7 +7,7 @@ const switchLocalePath = useSwitchLocalePath();
 
 const { menu } = useNavigation();
 
-function changeLang(lang: 'zh_tw' | 'en') {
+function changeLang(lang: 'zh-TW' | 'en') {
   const path = switchLocalePath(lang);
 
   router.push(path);
@@ -50,7 +50,7 @@ function changeLang(lang: 'zh_tw' | 'en') {
           </UButton>
           <UButton
             class="h-32 w-50 text-xl flex flex-col items-center justify-center"
-            @click="changeLang('zh_tw')"
+            @click="changeLang('zh-TW')"
           >
             <Icon name="circle-flags:tw" size="36px" /> <span>繁體中文</span>
           </UButton>
