@@ -3,7 +3,7 @@ import MenuList from './MenuList.vue';
 
 const [open, setOpen] = useAppState(false);
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const localePath = useLocalePath();
 const route = useRoute();
 const { user } = storeToRefs(useAuth());
@@ -16,6 +16,12 @@ watch(
     setOpen(false);
   },
 );
+
+watch(locale, newLocale => {
+  if (!newLocale) return;
+
+  setOpen(false);
+});
 </script>
 
 <template>

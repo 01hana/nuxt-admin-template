@@ -15,7 +15,7 @@ useHead({
       return item.children.map(child => child.name);
     });
 
-    const menu = flatMenu.find(item => item === route.name?.toString().replace(/___[\w-]+$/, ''));
+    const menu = flatMenu.find(item => item === route.name);
 
     if (!menu) return '';
 
@@ -23,20 +23,6 @@ useHead({
   },
   titleTemplate: (title?: string) => (title ? title + ' - ' : '') + t('sitename'),
 });
-
-// watch(
-//   () => locale.value,
-//   newLocale => {
-//     if (!newLocale) return;
-
-//     const router = useRouter();
-//     const switchLocalePath = useSwitchLocalePath();
-
-//     const path = switchLocalePath(newLocale);
-
-//     router.push(path);
-//   },
-// );
 </script>
 
 <template>

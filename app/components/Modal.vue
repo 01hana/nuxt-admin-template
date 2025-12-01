@@ -3,12 +3,10 @@ import type { ModalProps } from '@/composables/useModal';
 
 defineOptions({ inheritAttrs: false });
 
-const { show, title, loading, subtitle, setTitle, afterEnter, afterLeave } = inject(
+const { show, title, loading, subtitle, afterEnter, afterLeave } = inject(
   useModalKey,
 ) as ModalProps;
 
-const attrs = useAttrs();
-const route = useRoute();
 const { t } = useI18n();
 
 const props = withDefaults(
@@ -27,14 +25,6 @@ const props = withDefaults(
 );
 
 const { fullscreen, size, formId, dismissible } = toRefs(props);
-
-const pageTitle = computed(() => {
-  const key = route.name?.toString().replace(/___.*$/, '') || '';
-
-  return t(`menu.${key}`);
-});
-
-setTitle(pageTitle.value);
 </script>
 
 <template>

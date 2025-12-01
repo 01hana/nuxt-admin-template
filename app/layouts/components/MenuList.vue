@@ -1,19 +1,10 @@
 <script setup lang="ts">
 const isCollapsed = inject('isCollapsed') as boolean;
 
-const router = useRouter();
-const { t } = useI18n();
+const { t, setLocale } = useI18n();
 
 const { menu } = useNavigation();
 const { logout } = useAuth();
-
-function changeLang(lang: 'zh-TW' | 'en') {
-  const switchLocalePath = useSwitchLocalePath();
-
-  const path = switchLocalePath(lang);
-
-  router.push(path);
-}
 </script>
 
 <template>
@@ -46,13 +37,13 @@ function changeLang(lang: 'zh-TW' | 'en') {
         <div class="flex items-center justify-around flex-wrap">
           <UButton
             class="h-32 w-50 text-xl flex flex-col items-center justify-center"
-            @click="changeLang('en')"
+            @click="setLocale('en')"
           >
             <Icon name="circle-flags:en" size="36px" /> <span>English</span>
           </UButton>
           <UButton
             class="h-32 w-50 text-xl flex flex-col items-center justify-center"
-            @click="changeLang('zh-TW')"
+            @click="setLocale('zh-TW')"
           >
             <Icon name="circle-flags:tw" size="36px" /> <span>繁體中文</span>
           </UButton>
@@ -65,7 +56,7 @@ function changeLang(lang: 'zh-TW' | 'en') {
       variant="link"
       color="neutral"
       class="flex items-center gap-2"
-      @click="logout"
+      @click="logout(t)"
     >
       <span
         class="transition-all duration-100 whitespace-nowrap overflow-hidden"

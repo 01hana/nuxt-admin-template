@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { VxeTableInstance } from 'vxe-table';
-// import { VxePager } from 'vxe-pc-ui';
 
 defineOptions({ inheritAttrs: false });
 
@@ -17,7 +16,6 @@ const {
   pager,
   pageChange,
   setTableRef,
-  // setPagerRef,
   setSort,
   setColumnFixed,
   sortChange,
@@ -39,7 +37,6 @@ const {
 } = useDeleteConfirm();
 
 const VxeTableRef = useTemplateRef<VxeTableInstance>('VxeTable');
-// const VxePagerRef = useTemplateRef<VxePager;>('VxePager')
 const sortConfig = ref({});
 
 const isRecordOverflowLength = computed(() =>
@@ -53,7 +50,6 @@ const maxHeight = computed(() => {
 
 onMounted(() => {
   setTableRef(VxeTableRef.value);
-  //   setPagerRef(VxePagerRef.value)
 
   if (sort) {
     const [field, order] = sort;

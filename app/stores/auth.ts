@@ -41,8 +41,8 @@ export const useAuth = defineStore('auth', () => {
     setUser(res);
   }
 
-  function logout() {
-    toast.success('您已經登出');
+  function logout(t: any) {
+    toast.success(`${t('auth.logoutSuccess')}`);
 
     clearAuth();
   }

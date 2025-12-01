@@ -16,7 +16,7 @@ const props = withDefaults(
 
 const { icon, hideLabel } = toRefs(props);
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const attrs = useAttrs();
 
 const id = ref(`text-field-${useId()}`);
@@ -33,7 +33,7 @@ const { value: modelValue, errorMessage: errorMessages } = useField<any>(
   },
 );
 
-const df = new DateFormatter('zh-TW', { dateStyle: 'medium' });
+const df = new DateFormatter(locale.value, { dateStyle: 'medium' });
 const timeZone = getLocalTimeZone();
 
 // 若初始 value 存在日期字串，轉換成 CalendarDate
@@ -77,7 +77,9 @@ const calendarValue = computed({
         block
         class="justify-start"
       >
-        {{ calendarValue ? df.format(calendarValue.toDate(timeZone)) : `${t('actions.selectDate')}` }}
+        {{
+          calendarValue ? df.format(calendarValue.toDate(timeZone)) : `${t('actions.selectDate')}`
+        }}
       </UButton>
 
       <template #content>

@@ -50,7 +50,7 @@ export default defineNuxtConfig({
   },
   i18n: {
     defaultLocale: 'zh-TW',
-    strategy: 'prefix_except_default',
+    strategy: 'no_prefix',
     langDir: 'locales',
     locales: [
       {

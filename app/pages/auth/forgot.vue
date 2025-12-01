@@ -26,7 +26,12 @@ const onSubmit = handleSubmit(values => {
       <img src="@/assets/images/logo/logo.png" alt="logo" class="w-full h-[150px] object-contain" />
     </template>
 
-    <UAlert :description="t('auth.receiveEmail')" variant="soft" class="mb-5 font-bold" />
+    <UAlert
+      :description="t('auth.receiveEmail')"
+      variant="soft"
+      class="mb-5 font-bold"
+      icon="fluent:info-24-regular"
+    />
 
     <UForm :state="{}" class="space-y-3" @submit="onSubmit">
       <FormField name="email" label="Email" icon="fluent:person-mail-24-regular" class="mb-1" />

@@ -78,10 +78,10 @@ const onSubmit = handleSubmit(values => {
     />
 
     <UForm :state="{}" class="space-y-3" @submit="onSubmit">
-      <FormField name="account" label="帳號" icon="fluent:person-lock-24-regular" />
+      <FormField name="account" :label="t('form.account')" icon="fluent:person-lock-24-regular" />
       <FormField
         name="password"
-        label="密碼"
+        :label="t('form.password')"
         icon="fluent:lock-closed-24-regular"
         :type="show ? 'text' : 'password'"
         class="mb-1"
@@ -100,7 +100,7 @@ const onSubmit = handleSubmit(values => {
       <FormField
         v-show="isFirstLogin"
         name="confirm_password"
-        label="密碼確認"
+        :label="t('form.confirmPassword')"
         :type="show ? 'text' : 'password'"
       >
         <UButton

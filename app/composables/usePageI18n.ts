@@ -3,22 +3,27 @@ export function usePageI18n() {
 
   const { t, setLocaleMessage, locale } = useI18n({ useScope: 'local' });
 
-  const rawName = route.name?.toString() ?? '';
+  const routeName = route.name?.toString() ?? '';
 
-  // 移除 ___zh-TW / ___en
-  const baseName = rawName.replace(/___[\w-]+$/, '');
+  watch(
+    locale,
+    async newLocale => {
+      if (!newLocale) return;
 
-  onMounted(async () => {
-    try {
-      const messages = await import(
-        `../../i18n/locales/${locale.value}/pages/${baseName}.json`
-      ).then(m => m.default);
+      try {
+        const messages = await import(
+          `../../i18n/locales/${newLocale}/pages/${routeName}.json`
+        ).then(m => m.default);
 
-      setLocaleMessage(locale.value, messages);
-    } catch (e) {
-      console.warn(`No page locale for: ${locale}/pages/${baseName}.json`);
-    }
-  });
+        setLocaleMessage(newLocale, messages);
+      } catch (e) {
+        console.warn(`No page locale for: ${newLocale}/pages/${routeName}.json`);
+      }
+    },
+    {
+      immediate: true,
+    },
+  );
 
   return { t };
 }

@@ -27,6 +27,7 @@ export function useModal(): ModalProps {
   const [spinner, setSpinner] = useAppState(false);
 
   const { t } = useI18n();
+  const route = useRoute();
 
   const id = ref();
   const type = ref();
@@ -41,8 +42,8 @@ export function useModal(): ModalProps {
   const isAdd = computed(() => type.value === 'ADD');
   const isEdit = computed(() => type.value === 'EDIT');
 
-  function setTitle(modalTitle: string, modalSubtitle?: string) {
-    title.value = modalTitle;
+  function setTitle(modalTitle?: string, modalSubtitle?: string) {
+    title.value = modalTitle ?? t(`menu.${String(route.name)}`);
     subtitle.value = modalSubtitle ?? '';
   }
 
@@ -61,6 +62,8 @@ export function useModal(): ModalProps {
   }
 
   function setModal(statusOrId: boolean | string | number, isView?: boolean | undefined) {
+    setTitle();
+
     if (typeof statusOrId === 'boolean') {
       if (!statusOrId) {
         show.value = false;

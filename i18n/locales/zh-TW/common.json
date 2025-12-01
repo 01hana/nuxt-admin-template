@@ -23,7 +23,8 @@
         "hasAccount": "已經有帳號?",
         "resetPassword": "輸入您的新密碼以重置密碼",
         "firstLogin": "初次登入請設定密碼",
-        "receiveEmail": "請輸入您的電子郵件帳號，我們會寄送新密碼至您的信箱。"
+        "receiveEmail": "請輸入您的電子郵件帳號，我們會寄送新密碼至您的信箱。",
+        "logoutSuccess": "您已經登出"
     },
     "actions": {
         "actions": "操作",
@@ -60,7 +61,10 @@
             "female": "女",
             "unknown": "不透露"
         },
-        "status": "狀態"
+        "status": "狀態",
+        "account": "帳號",
+        "password": "密碼",
+        "confirmPassword": "密碼確認"
     },
     "confirm": {
         "removeTitle": "確認刪除?",
