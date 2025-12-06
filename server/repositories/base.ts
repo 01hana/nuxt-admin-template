@@ -28,6 +28,16 @@ export class BaseRepository {
     this.selectableFields = selectableFields;
   }
 
+  protected useUUID: boolean = true;
+
+  protected get selectId() {
+    return this.useUUID ? 'BIN_TO_UUID(id, 1) as id' : 'id';
+  }
+
+  protected get whereId() {
+    return this.useUUID ? 'id = UUID_TO_BIN(?, 1)' : 'id = ?';
+  }
+
   /**
    * 共用 WHERE 子句產生器
    */
@@ -72,7 +82,7 @@ export class BaseRepository {
 
     const params: any[] = [];
 
-    const selectClause = ['BIN_TO_UUID(id, 1) as id', ...this.selectableFields].join(', ');
+    const selectClause = [this.selectId, ...this.selectableFields].join(', ');
     const baseSql = this.buildBaseQuery(keyword, filters, params);
 
     //  排序安全檢查
@@ -107,11 +117,11 @@ export class BaseRepository {
   /**
    * 查單筆
    */
-  async findById(id: string) {
-    const selectClause = ['BIN_TO_UUID(id, 1) as id', ...this.selectableFields].join(', ');
+  async findById(id: string | number) {
+    const selectClause = [this.selectId, ...this.selectableFields].join(', ');
 
     const [rows]: any = await db.query(
-      `SELECT ${selectClause} FROM \`${this.table}\` WHERE id = UUID_TO_BIN(?, 1)`,
+      `SELECT ${selectClause} FROM \`${this.table}\` WHERE ${this.whereId}`,
       [id],
     );
 
@@ -134,7 +144,14 @@ export class BaseRepository {
     if (!keys.length) return;
 
     const columns = keys.join(', ');
-    const placeholders = keys.map(k => (k === 'id' ? 'UUID_TO_BIN(?, 1)' : '?')).join(', ');
+
+    const placeholders = keys
+      .map(k => {
+        if (k === 'id' && this.useUUID) return 'UUID_TO_BIN(?, 1)';
+        return '?';
+      })
+      .join(', ');
+
     const values = Object.values(data);
 
     const sql = `
@@ -148,7 +165,7 @@ export class BaseRepository {
   /**
    *  更新
    */
-  async update(id: string, data: Record<string, any>) {
+  async update(id: string | number, data: Record<string, any>) {
     const entries = Object.entries(data).filter(([_, v]) => v !== undefined);
 
     if (!entries.length) return;
@@ -159,7 +176,7 @@ export class BaseRepository {
     const sql = `
       UPDATE \`${this.table}\`
       SET ${setClause}, updated_at = NOW()
-      WHERE id = UUID_TO_BIN(?, 1)
+      WHERE ${this.whereId}
     `;
 
     await db.query(sql, [...values, id]);
@@ -168,10 +185,17 @@ export class BaseRepository {
   /**
    *  軟刪除
    */
-  async softDelete(ids: string[]) {
+  async softDelete(ids: string[] | number[]) {
     if (!Array.isArray(ids) || !ids.length) return;
 
-    const placeholders = ids.map(() => 'UUID_TO_BIN(?, 1)').join(',');
+    let placeholders;
+
+    if (this.useUUID) {
+      placeholders = ids.map(() => 'UUID_TO_BIN(?, 1)').join(',');
+    } else {
+      placeholders = ids.map(() => '?').join(',');
+    }
+
     const sql = `
       UPDATE \`${this.table}\`
       SET deleted_at = NOW()
@@ -184,10 +208,17 @@ export class BaseRepository {
   /**
    *  硬刪除
    */
-  async hardDelete(ids: string[]) {
+  async hardDelete(ids: string[] | number[]) {
     if (!Array.isArray(ids) || !ids.length) return;
 
-    const placeholders = ids.map(() => 'UUID_TO_BIN(?, 1)').join(',');
+    let placeholders;
+
+    if (this.useUUID) {
+      placeholders = ids.map(() => 'UUID_TO_BIN(?, 1)').join(',');
+    } else {
+      placeholders = ids.map(() => '?').join(',');
+    }
+
     const sql = `
       DELETE FROM \`${this.table}\`
       WHERE id IN (${placeholders})
@@ -199,11 +230,11 @@ export class BaseRepository {
   /**
    *  檢查重複
    */
-  async uniqueCheck(
+  async checkUnique(
     data: any,
     keys: string[],
     translate: Record<string, string>,
-    excludeId?: string,
+    excludeId?: string | number,
   ) {
     if (!keys.length) return;
 
@@ -221,14 +252,19 @@ export class BaseRepository {
     if (!conditions.length) return;
 
     let sql = `
-      SELECT BIN_TO_UUID(id,1) AS id, ${keys.join(',')}
+      SELECT ${this.selectId}, ${keys.join(',')}
       FROM ${this.table}
       WHERE (${conditions.join(' OR ')})
     `;
 
     // UPDATE 模式：排除自己
-    if (excludeId) {
-      sql += ` AND id <> UUID_TO_BIN(?,1)`;
+    if (excludeId !== undefined && excludeId !== null) {
+      if (this.useUUID) {
+        sql += ` AND id <> UUID_TO_BIN(?, 1)`;
+      } else {
+        sql += ` AND id <> ?`;
+      }
+
       params.push(excludeId);
     }
 
@@ -242,6 +278,8 @@ export class BaseRepository {
     for (const key of keys) {
       if (row[key] === data[key]) {
         const label = translate[key] ?? key;
+
+        console.log('unique go here');
 
         throw appError(400, `${label} 已被使用`);
       }
