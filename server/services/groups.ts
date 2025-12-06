@@ -56,7 +56,7 @@ export const groupService = {
           perm.subject,
           perm.action,
         );
-        if (permRecord) await groupRepository.addPermission(id, permRecord.id);
+        if (permRecord) await permissionRepository.addPermission(id, permRecord.id);
       }
     }
 
@@ -69,7 +69,7 @@ export const groupService = {
 
     await groupRepository.update(id, { name, description, sort });
 
-    await groupRepository.clearPermissions(id);
+    await permissionRepository.clearPermissions(id);
 
     for (const perm of permissions) {
       const permRecord = await permissionRepository.findBySubjectAndAction(
@@ -77,7 +77,7 @@ export const groupService = {
         perm.action,
       );
 
-      if (permRecord) await groupRepository.addPermission(id, permRecord.id);
+      if (permRecord) await permissionRepository.addPermission(id, permRecord.id);
     }
 
     return this.get(id);

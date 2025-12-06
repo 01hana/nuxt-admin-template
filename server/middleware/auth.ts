@@ -3,7 +3,7 @@ import { appError } from '../utils/appError';
 
 // 1. 定義不需要驗證的 API 路由前綴或完整路徑
 // 例如：登入、註冊、忘記密碼等公開路由
-const publicRoutes = ['/api/v1/auth/login'];
+const publicRoutes = ['/api/v1/auth/login', '/api/v1/auth/firstLogin', '/api/v1/auth/forgot'];
 
 // 檢查當前 URL 是否以 publicRoutes 中的任一條規則開頭
 function isPublicRoute(url: string | undefined): boolean {
@@ -28,7 +28,7 @@ export default defineEventHandler(async event => {
   const token = header.replace('Bearer ', '');
   const payload = verifyAccessToken(token);
 
-  if (!payload) throw appError(401, '登入逾時或 Token 無效');
+  if (!payload) throw appError(401, '登入逾時，請重新登入');
 
   event.context.user = payload;
 });
