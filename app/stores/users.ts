@@ -30,6 +30,15 @@ export const useUsers = defineStore('users', () => {
   async function set(id: string, data: Record<string, any>) {
     const { data: res } = await UsersService.set(id, data);
 
+    const { user } = storeToRefs(useAuth());
+    const { getUser } = useAuth();
+
+    const { $updateAbility } = useNuxtApp();
+
+    await getUser();
+
+    $updateAbility(user.value?.permissions);
+
     return res;
   }
 

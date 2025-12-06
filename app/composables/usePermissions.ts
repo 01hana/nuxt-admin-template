@@ -1,4 +1,5 @@
 import { sideMenu } from '~~/constants/nav';
+import type { NavigationMenuItem } from '@nuxt/ui';
 
 type PermissionAction = 'view' | 'create' | 'edit' | 'delete';
 type ApiAction = 'read' | 'create' | 'update' | 'delete';
@@ -35,11 +36,20 @@ export function usePermissions(t: (key: string) => string) {
     },
   ];
 
-  const transSideMenu = computed(() =>
-    sideMenu.map(item => ({
-      ...item,
-      label: t(item.label as string),
-    })),
+  const transSideMenu = computed<NavigationMenuItem[]>(() =>
+    sideMenu.flatMap(item => {
+      if (item.children) {
+        return item.children.map(child => ({
+          ...child,
+          label: t(child.label as string),
+        }));
+      }
+
+      return {
+        ...item,
+        label: t(item.label as string),
+      };
+    }),
   );
 
   // 初始化 UI 狀態：每個 route 都有四個權限，預設 false

@@ -24,6 +24,17 @@ export const useGroups = defineStore('groups', () => {
   async function set(id: string, data: Record<string, any>) {
     const { data: res } = await GroupsService.set(id, data);
 
+    const { user } = storeToRefs(useAuth());
+    const { getUser } = useAuth();
+
+    const { $updateAbility } = useNuxtApp();
+
+    if (user.value?.groups.includes(res.id)) {
+      await getUser();
+
+      $updateAbility(user.value?.permissions);
+    }
+
     return res;
   }
 

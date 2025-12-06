@@ -1,7 +1,7 @@
 import type { MongoAbility } from '@casl/ability';
 
-export const useCasl = () => {
-  const route = useRoute();
+export function useCasl(to: any) {
+  const route = to;
 
   const { $ability } = useNuxtApp();
 
@@ -20,4 +20,4 @@ export const useCasl = () => {
 
     can,
   };
-};
+}

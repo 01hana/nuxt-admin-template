@@ -20,12 +20,13 @@ useHead({
 });
 
 const show = ref(false);
-const pwdRule = ref('');
+const pwdRule = ref('required');
 
 const { defineField, handleSubmit } = useForm({
   validationSchema: {
     account: 'required',
     password: pwdRule.value,
+    confirm_password: route.query.token ? 'required|confirmed:@password' : undefined,
   },
 });
 
@@ -66,8 +67,10 @@ const onSubmit = handleSubmit(values => {
 <template>
   <UCard class="w-[400px] shadow-lg ring-0 pb-5">
     <template #header>
-      <img src="@/assets/images/logo/logo.png" alt="logo" class="w-full h-[150px] object-contain" />
+      <img src="@/assets/images/logo/logo.png" alt="logo" class="w-full h-[130px] object-contain" />
     </template>
+
+    <h1 v-show="!isFirstLogin" class="text-xl font-bold text-center mb-5">管理者登入</h1>
 
     <UAlert
       v-show="isFirstLogin"

@@ -4,7 +4,7 @@ export default defineNuxtRouteMiddleware(async to => {
 
   const { getLocalStorage } = useStorage();
   const { $updateAbility, $clearAbility } = useNuxtApp();
-  const { can } = useCasl();
+  const { can } = useCasl(to);
 
   const isEnterAuthRoute = to.meta.resource === 'auth';
 

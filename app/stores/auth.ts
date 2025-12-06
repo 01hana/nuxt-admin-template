@@ -21,9 +21,17 @@ export const useAuth = defineStore('auth', () => {
     isLoginState.value = state;
   }
 
-  function firstLogin(data: { account: string; password: string }) {}
+  async function firstLogin(data: Record<string, string>) {
+    const { data: res } = await AuthService.firstLogin(data);
 
-  async function login(data: { account: string; password: string }) {
+    setUser(res.user);
+    setToken(res.token);
+    setLoginState(true);
+
+    router.push('/');
+  }
+
+  async function login(data: Record<string, string>) {
     const { data: res } = await AuthService.login(data);
 
     setUser(res.user);

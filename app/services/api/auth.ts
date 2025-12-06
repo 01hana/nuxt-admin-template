@@ -1,19 +1,19 @@
 import httpRequest from '@/services/index';
 
 class AuthService {
-  public firstLogin = (data: Record<string, any>) => {
+  public firstLogin = (data: Record<string, string>) => {
     return httpRequest.post('auth/firstLogin', data);
   };
 
-  public login = (data: Record<string, any>) => {
+  public login = (data: Record<string, string>) => {
     return httpRequest.post('auth/login', data);
   };
 
-  public forgot = (data: Record<string, any>) => {
+  public forgot = (data: Record<string, string>) => {
     return httpRequest.post('auth/forgot', data);
   };
 
-  public resetPwd = (data: Record<string, any>) => {
+  public resetPwd = (data: Record<string, string>) => {
     return httpRequest.post('auth/reset', data);
   };
 
