@@ -161,36 +161,36 @@ export class DtUtils extends Base {
     this.store.getTable(this.params.value);
   };
 
-  public actionBatch = async (type: string, value: string | boolean) => {
+  public actionBatch = async (value: string | boolean) => {
     if (this.select.count <= 0) return;
 
     const records = this.table.getCheckboxRecords();
 
     const rows = records.map(item => item.id);
 
-    const params = { type, value, rows };
+    const data = { status: value, ids: rows };
 
-    await this.store.actions(params);
+    await this.store.actions(data);
 
     await this.store.getTable(this.params.value);
 
     this.resetSelect();
   };
 
-  public actionStatus = async (id: number | string, value: boolean) => {
-    this.setSwitchLoading(id, true);
+  // public actionStatus = async (id: number | string, value: boolean) => {
+  //   this.setSwitchLoading(id, true);
 
-    const params = { type: 'status', value, rows: [id] };
+  //   const data = { rows: [id], status: value };
 
-    await this.store
-      .actions(params)
-      .catch((error: any) => {
-        this.setSwitchStatus(id, !value);
+  //   await this.store
+  //     .actions(data)
+  //     .catch((error: any) => {
+  //       this.setSwitchStatus(id, !value);
 
-        return Promise.reject(error);
-      })
-      .finally(() => this.setSwitchLoading(id, false));
-  };
+  //       return Promise.reject(error);
+  //     })
+  //     .finally(() => this.setSwitchLoading(id, false));
+  // };
 
   public manualHasEditStatus = (row: any) => {
     return this.table.isEditByRow(row);
