@@ -11,6 +11,10 @@ export const authService = {
 
     const user = await userRepository.findByAccount(account);
 
+    if (!user.password) {
+      throw appError(400, '尚未設定密碼，請使用首次登入流程');
+    }
+
     if (!user) {
       throw appError(400, '帳號或密碼錯誤');
     }
@@ -21,6 +25,11 @@ export const authService = {
       throw appError(400, '帳號或密碼錯誤');
     }
 
+    // 停用帳號檢查
+    if (!user.status) {
+      throw appError(403, '此帳號已停用，請聯絡系統管理者');
+    }
+
     const groups = await groupRepository.findByUserId(user.id);
     const permissions = await permissionRepository.findByUserId(user.id);
 
@@ -29,6 +38,7 @@ export const authService = {
       account: user.account,
       name: user.name,
       email: user.email,
+      status: user.status === 1 ? true : false,
       groups,
       permissions,
     };
@@ -71,6 +81,7 @@ export const authService = {
       account: user.account,
       name: user.name,
       email: user.email,
+      status: user.status === 1 ? true : false,
       groups,
       permissions,
     };

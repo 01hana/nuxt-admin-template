@@ -1,5 +1,6 @@
 import { verifyAccessToken } from '../utils/jwt';
 import { appError } from '../utils/appError';
+import { userRepository } from '../repositories/users';
 
 // 1. 定義不需要驗證的 API 路由前綴或完整路徑
 // 例如：登入、註冊、忘記密碼等公開路由
@@ -26,9 +27,13 @@ export default defineEventHandler(async event => {
   }
 
   const token = header.replace('Bearer ', '');
-  const payload = verifyAccessToken(token);
+  const payload = verifyAccessToken(token) as Record<string, any>;
 
   if (!payload) throw appError(401, '登入逾時，請重新登入');
+
+  const user = await userRepository.findById(payload.id);
+
+  if (!user.status) throw appError(403, '此帳號已停用，請聯絡系統管理者');
 
   event.context.user = payload;
 });

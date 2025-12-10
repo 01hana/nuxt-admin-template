@@ -5,7 +5,7 @@ import { signSetupToken } from '../utils/jwt';
 import { mailer } from '../utils/mailer';
 
 export const userService = {
-  async getTable(body: any) {
+  async getTable(body: any, currentUserId: string) {
     const [sortField, sortOrder] = body.sort || ['updated_at', 'desc'];
     const keyword = body.searches?.keyword || '';
     const filters = body.filters || {};
@@ -40,6 +40,16 @@ export const userService = {
     // 取得使用者關聯群組資料
     const mergedData = await this.findUserGroups(filteredUsers);
 
+    // 將使用者本身固定在第一筆
+    const myIndex = mergedData.findIndex(user => user.id === currentUserId);
+
+    if (myIndex > 0) {
+      const [myData] = mergedData.splice(myIndex, 1);
+
+      mergedData.unshift(myData);
+    }
+
+    // 回傳
     return {
       data: mergedData,
       p,
