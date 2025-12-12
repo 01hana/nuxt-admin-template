@@ -1,7 +1,6 @@
 import { sideMenu } from '~~/constants/nav';
 import type { NavigationMenuItem } from '@nuxt/ui';
 
-type PermissionAction = 'view' | 'create' | 'edit' | 'delete';
 type ApiAction = 'read' | 'create' | 'update' | 'delete';
 
 interface ApiPermission {
@@ -9,32 +8,20 @@ interface ApiPermission {
   action: ApiAction;
 }
 
-const actionMap: Record<PermissionAction, ApiAction> = {
+const actionMap = {
   view: 'read',
   create: 'create',
   edit: 'update',
   delete: 'delete',
-};
+} satisfies Record<PermissionAction, ApiAction>;
 
 export function usePermissions(t: (key: string) => string) {
-  const defaultActions: { label: string; value: PermissionAction }[] = [
-    {
-      label: t('actions.view'),
-      value: 'view',
-    },
-    {
-      label: t('actions.create'),
-      value: 'create',
-    },
-    {
-      label: t('actions.edit'),
-      value: 'edit',
-    },
-    {
-      label: t('actions.remove'),
-      value: 'delete',
-    },
-  ];
+  const defaultActions = [
+    { label: t('actions.view'), value: 'view' },
+    { label: t('actions.create'), value: 'create' },
+    { label: t('actions.edit'), value: 'edit' },
+    { label: t('actions.remove'), value: 'delete' },
+  ] satisfies { label: string; value: PermissionAction }[];
 
   const transSideMenu = computed<NavigationMenuItem[]>(() =>
     sideMenu.flatMap(item => {
@@ -56,27 +43,23 @@ export function usePermissions(t: (key: string) => string) {
   const state = ref<Record<string, Record<PermissionAction, boolean>>>(
     Object.fromEntries(
       transSideMenu.value.map(route => [
-        route.to,
+        route.name,
         { view: false, create: false, edit: false, delete: false },
       ]),
     ),
   );
 
-  function extractSubject(path: string) {
-    return path.split('/').filter(Boolean).pop() || path;
-  }
-
   // 將 UI 狀態轉換成後端需要的格式
   function toApi(): ApiPermission[] {
     const result: ApiPermission[] = [];
 
-    for (const [to, actions] of Object.entries(state.value)) {
-      for (const [actionKey, enabled] of Object.entries(actions)) {
-        if (!enabled) continue;
+    for (const [name, actions] of Object.entries(state.value)) {
+      for (const actionKey of Object.keys(actions) as PermissionAction[]) {
+        if (!actions[actionKey]) continue;
 
         result.push({
-          subject: extractSubject(to),
-          action: actionMap[actionKey as PermissionAction],
+          subject: name,
+          action: actionMap[actionKey],
         });
       }
     }
@@ -90,7 +73,7 @@ export function usePermissions(t: (key: string) => string) {
 
     // 套用 API 資料
     apiPermissions.forEach(({ subject, action }) => {
-      const uiPath = Object.keys(state.value).find(path => extractSubject(path) === subject);
+      const uiPath = Object.keys(state.value).find(path => path === subject);
 
       if (!uiPath) return;
 

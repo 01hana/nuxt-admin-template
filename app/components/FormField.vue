@@ -62,7 +62,7 @@ const { value, errorMessage: errorMessages } = useField<any>(
       :multiple
       class="w-full"
       v-bind="$attrs"
-      :items="$attrs.items as any[]"
+      :items="$attrs.items as Record<string, string>[]"
     />
 
     <URadioGroup
@@ -72,7 +72,7 @@ const { value, errorMessage: errorMessages } = useField<any>(
       size="xl"
       orientation="horizontal"
       v-bind="$attrs"
-      :items="$attrs.items as any[]"
+      :items="$attrs.items as Record<string, string>[]"
     />
 
     <USwitch

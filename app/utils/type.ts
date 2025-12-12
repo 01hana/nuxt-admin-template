@@ -5,3 +5,5 @@ export type ToType =
   | RouteLocationAsRelativeGeneric
   | RouteLocationAsPathGeneric
   | undefined;
+
+export type PermissionAction = 'view' | 'create' | 'edit' | 'delete';

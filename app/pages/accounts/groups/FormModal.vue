@@ -58,13 +58,13 @@ const onSubmit = handleSubmit(async values => {
   setLoading(false);
 }) as (e?: Event) => Promise<void>;
 
-function isAllChecked(path: ToType) {
-  return Object.values(permissions.value[path as string] ?? {}).every(Boolean);
+function isAllChecked(name: string) {
+  return Object.values(permissions.value[name] ?? {}).every(Boolean);
 }
 
-function toggleAll(path: ToType, value: boolean) {
-  for (const key in permissions.value[path as string]) {
-    permissions.value[path as string][key] = value;
+function toggleAll(name: string, value: boolean) {
+  for (const key in permissions.value[name]) {
+    permissions.value[name][key as PermissionAction] = value;
   }
 }
 </script>
@@ -93,8 +93,8 @@ function toggleAll(path: ToType, value: boolean) {
                 <div class="p-4 space-y-3">
                   <UCheckbox
                     :label="t('actions.selectAll')"
-                    :model-value="isAllChecked(item.to)"
-                    @update:model-value="toggleAll(item.to, !!$event)"
+                    :model-value="isAllChecked(item.name)"
+                    @update:model-value="toggleAll(item.name, !!$event)"
                   />
                   <div
                     v-for="action in defaultActions"
@@ -102,7 +102,7 @@ function toggleAll(path: ToType, value: boolean) {
                     class="flex items-center justify-between"
                   >
                     <span>{{ action.label }} </span>
-                    <USwitch v-model="permissions[item.to][action.value]" color="primary" />
+                    <USwitch v-model="permissions[item.name][action.value]" color="primary" />
                   </div>
                 </div>
               </template>

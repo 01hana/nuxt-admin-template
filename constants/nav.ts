@@ -1,6 +1,6 @@
 import type { NavigationMenuItem } from '@nuxt/ui';
 
-export const sideMenu: NavigationMenuItem[] = [
+export const sideMenu = [
   {
     label: 'menu.dashboard',
     icon: 'solar:chart-2-outline',
@@ -42,4 +42,4 @@ export const sideMenu: NavigationMenuItem[] = [
       },
     ],
   },
-];
+] satisfies NavigationMenuItem[];
