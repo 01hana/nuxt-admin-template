@@ -1,12 +1,13 @@
 export const productsFields: string[] = [
   'name',
   'number',
-  'cover',
+  'cover_url',
   'images',
   'category',
   'stock',
   'price',
   'status',
+  'sort',
 ];
 
 export const customersFields: string[] = [''];

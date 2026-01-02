@@ -9,6 +9,10 @@ class CategoryService {
     return httpRequest.get(`products/categories/${id}`);
   };
 
+  public getCategories = () => {
+    return httpRequest.get('products/categories');
+  };
+
   public create = (data: Record<string, any>) => {
     return httpRequest.post('products/categories', data);
   };

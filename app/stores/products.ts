@@ -19,8 +19,8 @@ export const useProducts = defineStore('products', () => {
     return await ProductService.get(id);
   }
 
-  async function create(id: string | number, data: Record<string, any>) {
-    return await ProductService.create(id, data);
+  async function create(data: Record<string, any>) {
+    return await ProductService.create(categoryId.value, data);
   }
 
   async function set(id: string, data: Record<string, any>) {
@@ -29,10 +29,10 @@ export const useProducts = defineStore('products', () => {
     return res;
   }
 
-  async function remove(id: string | number, { rows }: Record<string, number | string>) {
+  async function remove({ rows }: Record<string, number | string>) {
     const data = { ids: rows };
 
-    return await ProductService.remove(id, data);
+    return await ProductService.remove(categoryId.value, data);
   }
 
   async function actions() {}

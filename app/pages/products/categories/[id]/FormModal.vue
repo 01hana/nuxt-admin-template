@@ -6,7 +6,12 @@ const { id, show, isAdd, isEdit, setModal } = inject(useModalKey) as ModalProps;
 
 const { get, create, set, getTable } = useProducts();
 const { handleSubmit, resetForm, setFieldValue } = useForm({
-  validationSchema: { name: 'required', number: 'required', cover: 'required', images: 'required' },
+  validationSchema: {
+    name: 'required',
+    number: 'required',
+    cover_url: 'required',
+    images: 'required',
+  },
 });
 const { formUpdate } = useAppForm(updateFields, setFieldValue);
 
@@ -18,7 +23,17 @@ watch([show, id], async ([isShow, id]) => {
 
   const data = await get(id);
 
-  formUpdate(data);
+  const { formatUrlToFile } = useFormat();
+
+  const coverFile = data.cover_url ? await formatUrlToFile(data.cover_url) : null;
+
+  const imageFiles = data.images ? await Promise.all(data.images.map(formatUrlToFile)) : [];
+
+  formUpdate({
+    ...data,
+    cover_url: coverFile,
+    images: imageFiles,
+  });
 });
 
 function onAfterLeave() {
@@ -26,10 +41,10 @@ function onAfterLeave() {
 }
 
 const onSubmit = handleSubmit(async values => {
-  console.log(values);
+  const { toFormData } = useFormat();
 
   if (isAdd.value) {
-    await create(values).then(() => getTable(params.value));
+    await create(toFormData(values)).then(() => getTable(params.value));
 
     setModal(false);
   }
@@ -41,25 +56,6 @@ const onSubmit = handleSubmit(async values => {
     setModal(false);
   }
 }) as (e?: Event) => Promise<void>;
-
-const items = ref([
-  {
-    label: 'Backlog',
-    id: 'backlog',
-  },
-  {
-    label: 'Todo',
-    id: 'todo',
-  },
-  {
-    label: 'In Progress',
-    id: 'in_progress',
-  },
-  {
-    label: 'Done',
-    id: 'done',
-  },
-]);
 </script>
 
 <template>
@@ -70,16 +66,17 @@ const items = ref([
           <div class="flex-1 flex flex-col gap-3">
             <FormField name="name" label="商品名稱" />
             <FormField name="number" label="商品編號" />
-            <FormField name="category" label="類別" :items fieldType="select" />
+            <!-- <FormField name="category" label="類別" :items="categoryItems" fieldType="select" /> -->
             <FormField name="stock" label="庫存" fieldType="number" />
             <FormField name="price" label="單價" />
+            <FormField name="sort" label="排序" fieldType="number" />
             <FormField name="status" label="狀態" fieldType="switch" />
           </div>
 
           <USeparator orientation="vertical" class="hidden md:block h-auto self-stretch -my-6" />
 
           <div class="flex-2 flex flex-col gap-3">
-            <FileUpload label="封面圖" name="cover" description="(max 2MB)" accept="image/*" />
+            <FileUpload label="封面圖" name="cover_url" description="(max 2MB)" accept="image/*" />
 
             <FileUpload
               label="商品照"

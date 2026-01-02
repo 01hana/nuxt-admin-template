@@ -14,9 +14,7 @@ class ProductService {
   };
 
   public create = (id: string | number, data: Record<string, any>) => {
-    return httpRequest.post(`products/categories/${id}`, data, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    return httpRequest.post(`products/categories/${id}`, data);
   };
 
   public set = (id: string | number, data: Record<string, any>) => {

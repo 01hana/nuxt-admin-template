@@ -9,6 +9,12 @@ export const useCategories = defineStore('categories', () => {
     return await CategoryService.get(id);
   }
 
+  async function getCategories() {
+    const { data: res } = await CategoryService.getCategories();
+
+    return res;
+  }
+
   async function create(data: Record<string, any>) {
     return await CategoryService.create(data).then(() => {
       const toast = useAppToast();
@@ -36,6 +42,7 @@ export const useCategories = defineStore('categories', () => {
   return {
     getTable,
     get,
+    getCategories,
     create,
     set,
     remove,

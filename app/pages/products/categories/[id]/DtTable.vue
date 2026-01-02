@@ -17,10 +17,10 @@ onMounted(() => {
 
 <template>
   <TableData :sort="['updated_at', 'desc']">
-    <vxe-column min-width="120" field="cover" title="封面圖" align="center">
+    <vxe-column min-width="120" field="cover_url" title="封面圖" align="center">
       <template #default="{ row }">
         <div class="flex justify-center">
-          <vxe-image :src="row.cover" height="50" />
+          <vxe-image :src="row.cover_url" height="50" />
         </div>
       </template>
     </vxe-column>
